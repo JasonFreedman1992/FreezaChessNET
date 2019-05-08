@@ -8,54 +8,69 @@
  *
 */
 
+function changeColorBar() {
+    bctx.strokeStyle = "#4286f4";
+    bctx.strokeRect(0, 25, 1000 * canvas_scale, 50);
+    if (Turn === "b") {
+        bctx.fillStyle = "#000000";
+        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
+    }
+    else {
+        bctx.fillStyle = "#FFFFFF";
+        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
+    }
+}
+
 var Turn = "b";
+
+changeColorBar();
 
 var Board = [];
 initBoard();
 render();
 
 function initBoard() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
         Board[i] = [];
-        for (let j = 0; j < 8; j++) {
+        for (let j = 0; j < 10; j++) {
             Board[i][j] = "z";
             //ctx.drawImage(img, i * 100, j * 100);
         }
     }
 
     Board[0][0] = "bc";
-    Board[1][0] = "bn";
-    Board[2][0] = "bp";
-    Board[3][0] = "bq";
-    Board[4][0] = "bq";
-    Board[5][0] = "bk";
-    Board[6][0] = "bq";
-    Board[7][0] = "bb";
-    Board[8][0] = "bn";
-    Board[9][0] = "bc";
+    Board[0][1] = "bn";
+    Board[0][2] = "bb";
+    Board[0][3] = "bq";
+    Board[0][4] = "bq";
+    Board[0][5] = "bk";
+    Board[0][6] = "bq";
+    Board[0][7] = "bb";
+    Board[0][8] = "bn";
+    Board[0][9] = "bc";
 
-    for (let i = 0; i < 10; i++) {
-        for (let j = 1; j < 2; j++) {
+    for (let i = 1; i < 2; i++) {
+        for (let j = 0; j < 10; j++) {
             Board[i][j] = "bp";
         }
     }
 
-    for (let i = 0; i < 10; i++) {
-        for (let j = 6; j < 7; j++) {
+    for (let i = 6; i < 7; i++) {
+        for (let j = 0; j < 10; j++) {
             Board[i][j] = "wp";
         }
     }
 
-    Board[0][7] = "wc";
-    Board[1][7] = "wn";
-    Board[2][7] = "wp";
-    Board[3][7] = "wq";
-    Board[4][7] = "wk";
-    Board[5][7] = "wq";
-    Board[6][7] = "wq";
+    Board[7][0] = "wc";
+    Board[7][1] = "wn";
+    Board[7][2] = "wb";
+    Board[7][3] = "wq";
+    Board[7][4] = "wk";
+    Board[7][5] = "wq";
+    Board[7][6] = "wq";
     Board[7][7] = "wb";
-    Board[8][7] = "wn";
-    Board[9][7] = "wc";
+    Board[7][8] = "wn";
+    Board[7][9] = "wc";
 
 }
 
@@ -78,13 +93,12 @@ function Run_BPlayer() {
 
     if (this.click_count === 0) {
         console.log("in click_count 0");
+        start_x = y_selected;
+        start_y = x_selected;
 
-        if (Board[x_selected][y_selected].charAt(0) === "b") {
-            start_x = x_selected;
-            start_y = y_selected;
+        if (Board[start_x][start_y].charAt(0) === "b") {
             click_count++;
             piece_selected = Board[start_x][start_y];
-            console.log("new click_count", click_count)
         }
         else {
             click_count = 0;
@@ -92,31 +106,32 @@ function Run_BPlayer() {
         //var current_piece
     }
     else { // if this.click_count === 1
-        end_x = x_selected;
-        end_y = y_selected;
+        console.log('in click count 1');
+        end_x = y_selected;
+        end_y = x_selected;
         var Npiece = piece_selected.charAt(1);
-        if (is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
-            console.log("after castle_is_valid true");
+        if (Board[end_x][end_y].charAt(0) !== "b" && is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
             Board[start_x][start_y] = "z";
             Board[end_x][end_y] = piece_selected;
             render();
-            click_count = 0;
             Turn = "w";
+            changeColorBar();
         }
-        console.log(end_x + " " + end_y);
+        click_count = 0;
+        //console.log(end_x + " " + end_y);
     }
 }
 
 function Run_WPlayer() {
     if (this.click_count === 0) {
-        console.log("in click_count 0");
+        //console.log("in click_count 0");
+        start_x = y_selected;
+        start_y = x_selected;
 
-        if (Board[x_selected][y_selected].charAt(0) === "w") {
-            start_x = x_selected;
-            start_y = y_selected;
+        if (Board[start_x][start_y].charAt(0) === "w") {
             click_count++;
             piece_selected = Board[start_x][start_y];
-            console.log("new click_count", click_count)
+            //console.log("new click_count", click_count)
         }
         else {
             click_count = 0;
@@ -124,17 +139,18 @@ function Run_WPlayer() {
         //var current_piece
     }
     else { // if this.click_count === 1
-        end_x = x_selected;
-        end_y = y_selected;
+        end_x = y_selected;
+        end_y = x_selected;
         var Npiece = piece_selected.charAt(1);
-        if (is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
-            console.log("after castle_is_valid true");
+        if (Board[end_x][end_y].charAt(0) !== "w" && is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
+            //console.log("after castle_is_valid true");
             Board[start_x][start_y] = "z";
             Board[end_x][end_y] = piece_selected;
             render();
-            click_count = 0;
             Turn = "b";
+            changeColorBar();
         }
-        console.log(end_x + " " + end_y);
+        click_count = 0;
+        //console.log(end_x + " " + end_y);
     }
 }

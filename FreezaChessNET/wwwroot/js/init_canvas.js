@@ -64,6 +64,9 @@ var y_selected;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
+var bar = document.getElementById("colorBar");
+var bctx = bar.getContext("2d");
+
 ctx.canvas.width = 1000;
 ctx.canvas.height = 800;
 
@@ -143,7 +146,7 @@ function render() {
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 8; j++) {
 
-            switch (Board[i][j]) {
+            switch (Board[j][i]) {
                 case "wp":
                     ctx.drawImage(wp, i * 100 * canvas_scale, j * 100 * canvas_scale);
                     break;
