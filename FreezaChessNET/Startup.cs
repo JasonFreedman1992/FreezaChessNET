@@ -33,7 +33,7 @@ namespace FreezaChessNET
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
-                options.Conventions.AddPageRoute(pageName: "/ChessDiv", route: "");
+                options.Conventions.AddPageRoute(pageName: "/TenChess", route: "");
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

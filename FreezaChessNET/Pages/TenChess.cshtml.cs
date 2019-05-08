@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FreezaChessNET.Pages
 {
-    public class ChessDivModel : PageModel
+    public class TenChessModel : PageModel
     {
         public void OnGet()
         {

@@ -335,3 +335,5 @@ function king(start_x, start_y, end_x, end_y, Turn) {
         return true;
     }
 }
+
+render();

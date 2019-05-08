@@ -27,7 +27,6 @@ changeColorBar();
 
 var Board = [];
 initBoard();
-render();
 
 function initBoard() {
     for (let i = 0; i < 8; i++) {

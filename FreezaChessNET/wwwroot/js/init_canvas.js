@@ -39,6 +39,21 @@ $(window).resize(function () {
         canvas_scale = 1;
     }
 
+    wp.width = 100 * canvas_scale;
+
+    //wc.src = '../images/wc.jpg';
+    //wn.src = '../images/wn.jpg';
+    //wb.src = '../images/wb.jpg';
+    //wq.src = '../images/wq.jpg';
+    //wk.src = '../images/wk.jpg';
+
+    //bp.src = '../images/bp.jpg';
+    //bc.src = '../images/bc.jpg';
+    //bn.src = '../images/bn.jpg';
+    //bb.src = '../images/bb.jpg';
+    //bq.src = '../images/bq.jpg';
+    //bk.src = '../images/bk.jpg';
+
     ctx.canvas.width = canvas_max_width * canvas_scale;
     ctx.canvas.height = canvas_max_height * canvas_scale;
 
@@ -148,41 +163,41 @@ function render() {
 
             switch (Board[j][i]) {
                 case "wp":
-                    ctx.drawImage(wp, i * 100 * canvas_scale, j * 100 * canvas_scale);
+
+                    ctx.drawImage(wp, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wc":
-                    ctx.drawImage(wc, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(wc, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wn":
-                    ctx.drawImage(wn, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(wn, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wb":
-                    ctx.drawImage(wb, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(wb, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wq":
-                    ctx.drawImage(wq, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(wq, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wk":
-                    ctx.drawImage(wk, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(wk, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
-
                 case "bp":
-                    ctx.drawImage(bp, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bp, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "bc":
-                    ctx.drawImage(bc, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bc, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "bn":
-                    ctx.drawImage(bn, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bn, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "bb":
-                    ctx.drawImage(bb, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bb, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "bq":
-                    ctx.drawImage(bq, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bq, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "bk":
-                    ctx.drawImage(bk, i * 100 * canvas_scale, j * 100 * canvas_scale);
+                    ctx.drawImage(bk, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
 
                 case "z":
