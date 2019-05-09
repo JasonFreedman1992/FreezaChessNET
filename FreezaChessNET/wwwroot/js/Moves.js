@@ -332,8 +332,18 @@ function king(start_x, start_y, end_x, end_y, Turn) {
 
     if (start_x <= max && start_y <= max && end_x <= max && end_y <= max) {
         console.log("returning True");
+        if (Turn === "b") {
+            //currentKingX = end_x;
+            //currentKingY = end_y;
+            bKingX = end_x;
+            bKingY = end_y;
+        }
+        else {
+            //currentKingX = end_x;
+            //currentKingY = end_y;
+            wKingX = end_x;
+            wKingY = end_y;
+        }
         return true;
     }
 }
-
-render();

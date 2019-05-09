@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body  onload="startTime()">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -51,6 +51,7 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js'></script>
         <script src="~/js/init_canvas.js" asp-append-version="true"></script>
         <script src="~/js/State.js" asp-append-version="true"></script>
         <script src="~/js/Castle.js" asp-append-version="true"></script>

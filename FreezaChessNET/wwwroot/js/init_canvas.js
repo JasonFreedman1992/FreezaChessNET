@@ -10,16 +10,61 @@
  *
 */
 
+setTimeout(render, 100);
+
+var ns;
+var nm;
+var nh;
+
+var now;
+
+function getCurrentTime() {
+    now = new Date();
+    ns = now.getSeconds();
+    nm = now.getMinutes();
+    nh = now.getHours();
+
+    nm = checkTime(nm);
+    ns = checkTime(ns);
+
+}
+
+getCurrentTime();
+
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+
+    h = h - nh;
+    s = s - ns;
+    m = m - nm;
+
+    //document.getElementById('TimeElapsed').innerHTML = "Time elapsed:" + h + ":" + m + ":" + s;
+    document.getElementById('TimeElapsed').innerHTML = "Time elapsed: " + h + ":" + m + ":" + s;
+
+    var t = setTimeout(startTime, 500);
+
+}
+
+function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+    return i;
+}
+
 var canvas_scale = 1;
 
 $(window).resize(function () {
     screen_width = $(window).width();
     screen_height = $(window).height();
 
-    if (screen_width < 1000 || screen_height < 800) {
+    if (screen_width < 1200 || screen_height < 800) {
         if (screen_width < screen_height) {
             if (screen_width > 400) {
-                canvas_scale = screen_width / 1000 * .85;
+                canvas_scale = screen_width / 1200 * .95;
             }
             else {
                 canvas_scale = .5;
@@ -40,19 +85,6 @@ $(window).resize(function () {
     }
 
     wp.width = 100 * canvas_scale;
-
-    //wc.src = '../images/wc.jpg';
-    //wn.src = '../images/wn.jpg';
-    //wb.src = '../images/wb.jpg';
-    //wq.src = '../images/wq.jpg';
-    //wk.src = '../images/wk.jpg';
-
-    //bp.src = '../images/bp.jpg';
-    //bc.src = '../images/bc.jpg';
-    //bn.src = '../images/bn.jpg';
-    //bb.src = '../images/bb.jpg';
-    //bq.src = '../images/bq.jpg';
-    //bk.src = '../images/bk.jpg';
 
     ctx.canvas.width = canvas_max_width * canvas_scale;
     ctx.canvas.height = canvas_max_height * canvas_scale;
@@ -113,7 +145,6 @@ bb.src = '../images/bb.jpg';
 bq.src = '../images/bq.jpg';
 bk.src = '../images/bk.jpg';
 
-
 function initCanvas() {
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 8; j++) {
@@ -163,7 +194,6 @@ function render() {
 
             switch (Board[j][i]) {
                 case "wp":
-
                     ctx.drawImage(wp, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
                 case "wc":
@@ -199,7 +229,6 @@ function render() {
                 case "bk":
                     ctx.drawImage(bk, i * 100 * canvas_scale, j * 100 * canvas_scale, 100 * canvas_scale, 100 * canvas_scale);
                     break;
-
                 case "z":
                     if ((i + j) % 2 == 0) { // if even
                         ctx.fillStyle = "#3D485D";
@@ -212,5 +241,19 @@ function render() {
                     break;
             }
         }
+    }
+
+    //
+    // draw color bar
+    //
+    bctx.strokeStyle = "#4286f4";
+    bctx.strokeRect(0, 25, 1000 * canvas_scale, 50);
+    if (Turn === "b") {
+        bctx.fillStyle = "#000000";
+        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
+    }
+    else {
+        bctx.fillStyle = "#FFFFFF";
+        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
     }
 }

@@ -8,22 +8,10 @@
  *
 */
 
-function changeColorBar() {
-    bctx.strokeStyle = "#4286f4";
-    bctx.strokeRect(0, 25, 1000 * canvas_scale, 50);
-    if (Turn === "b") {
-        bctx.fillStyle = "#000000";
-        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
-    }
-    else {
-        bctx.fillStyle = "#FFFFFF";
-        bctx.fillRect(0, 25, 1000 * canvas_scale, 50);
-    }
-}
+//var danger = new Danger();
 
 var Turn = "b";
-
-changeColorBar();
+var TurnCount = 0;
 
 var Board = [];
 initBoard();
@@ -81,75 +69,84 @@ var end_x = 0;
 var end_y = 0;
 
 function Run() {
+    if (this.click_count === 0) {
+        start_x = y_selected;
+        start_y = x_selected;
+
+        if (Board[start_x][start_y].charAt(0) === Turn) {
+            click_count++;
+            piece_selected = Board[start_x][start_y];
+        }
+        else {
+            click_count = 0;
+        }
+    }
+    else { // if this.click_count === 1
+        end_x = y_selected;
+        end_y = x_selected;
+        var Npiece = piece_selected.charAt(1);
+        if (Board[end_x][end_y].charAt(0) !== Turn && is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
+            moveTemp(start_x, start_y, end_x, end_y);
+            if (danger.inDanger(0, 0)) {
+                moveBack(start_x, start_y, end_x, end_y);
+            }
+            else {
+                Board[start_x][start_y] = "z";
+                Board[end_x][end_y] = piece_selected;
+                changeTurn();
+                TurnCount++;
+                render();
+                document.getElementById("TurnCount").innerHTML = "Turn #: " + TurnCount;
+            }
+        }
+        click_count = 0;
+        //console.log(end_x + " " + end_y);
+    }
+}
+
+var currentKingX = 0;
+var currentKingY = 0;
+
+var bKingX = 0;
+var bKingY = 5;
+
+var wKingX = 7;
+var wKingY = 4;
+
+function changeTurn() {
     if (Turn === "b") {
-        Run_BPlayer();
-    } else {
-        Run_WPlayer();
+        currentKingX = wKingX;
+        currentKingY = wKingY;
+        Turn = "w";
+    }
+    else {
+        currentKingX = bKingX;
+        currentKingY = bKingY;
+        Turn = "b";
     }
 }
 
-function Run_BPlayer() {
+var lastDestroyedPiece;
 
-    if (this.click_count === 0) {
-        console.log("in click_count 0");
-        start_x = y_selected;
-        start_y = x_selected;
+function moveTemp(start_x, start_y, end_x, end_y) {
+    Board[start_x][start_y] = "z";
+    lastDestroyedPiece = Board[end_x][end_y];
+    Board[end_x][end_y] = piece_selected;
+}
 
-        if (Board[start_x][start_y].charAt(0) === "b") {
-            click_count++;
-            piece_selected = Board[start_x][start_y];
-        }
-        else {
-            click_count = 0;
-        }
-        //var current_piece
+function moveBack(start_x, start_y, end_x, end_y) {
+
+}
+
+class Danger {
+    constructor() {
+
     }
-    else { // if this.click_count === 1
-        console.log('in click count 1');
-        end_x = y_selected;
-        end_y = x_selected;
-        var Npiece = piece_selected.charAt(1);
-        if (Board[end_x][end_y].charAt(0) !== "b" && is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
-            Board[start_x][start_y] = "z";
-            Board[end_x][end_y] = piece_selected;
-            render();
-            Turn = "w";
-            changeColorBar();
-        }
-        click_count = 0;
-        //console.log(end_x + " " + end_y);
+
+    inDanger(kingX, kingY) {
+        console.log(kingX, kingY);
+        return false;
     }
 }
 
-function Run_WPlayer() {
-    if (this.click_count === 0) {
-        //console.log("in click_count 0");
-        start_x = y_selected;
-        start_y = x_selected;
-
-        if (Board[start_x][start_y].charAt(0) === "w") {
-            click_count++;
-            piece_selected = Board[start_x][start_y];
-            //console.log("new click_count", click_count)
-        }
-        else {
-            click_count = 0;
-        }
-        //var current_piece
-    }
-    else { // if this.click_count === 1
-        end_x = y_selected;
-        end_y = x_selected;
-        var Npiece = piece_selected.charAt(1);
-        if (Board[end_x][end_y].charAt(0) !== "w" && is_valid(start_x, start_y, end_x, end_y, Npiece, Turn)) {
-            //console.log("after castle_is_valid true");
-            Board[start_x][start_y] = "z";
-            Board[end_x][end_y] = piece_selected;
-            render();
-            Turn = "b";
-            changeColorBar();
-        }
-        click_count = 0;
-        //console.log(end_x + " " + end_y);
-    }
-}
+var danger = new Danger();
